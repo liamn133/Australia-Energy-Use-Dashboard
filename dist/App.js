@@ -74,9 +74,7 @@ pies
 	.append("text")
 	.text((d) => d.data.name)
 	.attr("transform", (d) => `translate(${label.centroid(d)})`); //Pie Chart
-/* pies.append('text')
-.text(d => d.data.value)
-.attr('transform', d=>`translate(${label.centroid(d)})`) */
+
 const sectorSvg = d3
 	.select("#sectorSvg")
 	.append("svg")
@@ -119,6 +117,18 @@ function yAxis(g) {
 }
 sectorSvg.append("g").call(yAxis);
 sectorSvg.append("g").call(xAxis);
+
+sectorSvg.append("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -sectorMargin.left+20)
+    .attr("x", -sectorMargin.top-100)
+    .text("Relative Consumption (%)")
+	.style("fill", "#ffffff")
+	.style("stroke-width", "1px")
+	.style("font-size", "20px")
+
+
 sectorSvg.node(); //Bar Graph
 
 const stateSvg = d3
@@ -132,7 +142,6 @@ const stateSvg = d3
 		"translate(" + stateMargin.left + "," + stateMargin.top + ")"
 	);
 
-// Initialize the X axis
 var stateX = d3
 	.scaleBand()
 	.range([0, stateWidth])
@@ -148,16 +157,15 @@ stateSvg
 	.call(d3.axisBottom(stateX))
 	.attr("font-size", "12px");
 
-// Initialize the Y axis
-// Add Y axis
 var stateY = d3.scaleLinear().domain([-5, 50]).range([stateHeight, 0]);
 stateSvg
 	.append("g")
 	.attr("class", "myYaxis")
+	.text("Y axis title")
 	.call(d3.axisLeft(stateY))
-	.attr("font-size", "15px");
+	.attr("font-size", "15px")
+	
 
-// A function that create / update the plot for a given variable:
 function update(stateData) {
 	var u = stateSvg.selectAll("rect").data(stateData);
 
@@ -178,6 +186,14 @@ function update(stateData) {
 		})
 		.attr("fill", "#69b3a2");
 }
-
-// Initialize the plot with the first dataset
 update(stateData1);
+
+stateSvg.append("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -stateMargin.left+20)
+    .attr("x", -stateMargin.top)
+    .text("Relative Consumption (%)")
+	.style("fill", "#ffffff")
+	.style("stroke-width", "1px")
+	.style("font-size", "17px")

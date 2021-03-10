@@ -1,0 +1,20 @@
+{
+  "name": "AUS-Energy-Visualiser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liamn133/Australia-Energy-Use-Dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://liamn133.github.io/Australia-Energy-Use-Dashboard",
+  "dependencies": {
+    "gh-pages": "^3.1.0"
+  }
+}
