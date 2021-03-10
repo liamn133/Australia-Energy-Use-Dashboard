@@ -1,66 +1,57 @@
-#mainSvg{
-    
-    position: relative;
-   
-  
-    
-  }
-
-
-
-#container{
-    position: absolute;
-    left: 0px;
-    top: 0px;
+#mainSvg {
+	position: relative;
 }
 
-#sectorSvg{
-   margin-top: 50px;
-
-    
-   
+#container {
+	position: absolute;
+	left: 50px;
+	top: 0px;
 }
 
-#stateSvg{
-    margin-left: 170px;
-    
-  
- 
+#sectorSvg {
+	margin-top: 50px;
 }
 
-#topSvgs{
-    margin-left: 40px;
-    margin-top: 100px;
-    display: flex;
+#stateSvg {
+	margin-left: 170px;
 }
 
-body{
-    background-color: rgba(19, 18, 18, 0.9);
-    color: white;
+#topSvgs {
+	margin-left: 40px;
+	margin-top: 100px;
+	display: flex;
 }
 
-h1{
-   margin-left: 40px;
-   font-size: 1.5em;
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+body {
+	background-color: rgba(19, 18, 18, 0.9);
+	color: white;
 }
 
-#energyHeading{
-    margin-left: 0px;
-    margin-bottom: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+h1 {
+	margin-left: 40px;
+	font-size: 1.5em;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#sectorHeading{
-    margin-left: 40px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+#energyHeading {
+	margin-left: 0px;
+	margin-bottom: 20px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#stateHeading{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-left: 0px;
+#sectorHeading {
+	margin-left: 40px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#buttonContainer{
+#stateHeading {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	margin-left: 0px;
+}
 
+#buttonContainer {
+}
+
+.yAxis path{
+    stroke: #B8B8B8
 }
