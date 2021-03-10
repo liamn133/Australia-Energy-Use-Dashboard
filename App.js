@@ -2,7 +2,7 @@ const data = [
 	{ name: "Oil", value: 38.8 },
 	{ name: "Coal", value: 29.1 },
 	{ name: "Gas", value: 25.7 },
-	{ name: "Renewables", value: 6.4 },   //Energy usage: fuel type breakdown
+	{ name: "Renewables", value: 6.4 }, //Energy usage: fuel type breakdown
 ];
 
 const sectorData = [
@@ -14,30 +14,39 @@ const sectorData = [
 	{ name: "Commercial", value: 5.4 },
 	{ name: "Agriculture", value: 1.7 },
 	{ name: "Construction", value: 0.4 },
-    { name: "Water & Waste", value: 0.3},
-    { name: "Other", value: 0.9},           //Energy usage: sector breakdown
-
+	{ name: "Water & Waste", value: 0.3 },
+	{ name: "Other", value: 0.9 }, //Energy usage: sector breakdown
 ];
 
+const stateData1 = [
+	{ name: "New South Wales", value: 24.9 },
+	{ name: "Victoria", value: 20.9 },
+	{ name: "Queensland", value: 24.6 },
+	{ name: "Western Australia", value: 20.4 },
+	{ name: "South Australia", value: 5.2 },
+	{ name: "Tasmania", value: 1.8 },
+	{ name: "Northern Territory", value: 2.3 },
+];
 
-const stateData = [
-    {name: "New South Wales", value: 24.9},
-    {name: "Victoria", value: 20.9 },
-    {name: "Queensland", value: 24.6 },
-    {name: "Western Australia", value: 20.4 },
-    {name: "South Australia", value: 5.2 },
-    {name: "Tasmania", value: 1.8 },
-    {name: "Northern Territory", value: 2.3}
-]
-const svg = d3.select("svg"),
+const stateData2 = [
+	{ name: "New South Wales", value: -0.3 },
+	{ name: "Victoria", value: -1.5 },
+	{ name: "Queensland", value: -1.8 },
+	{ name: "Western Australia", value: 4.5 },
+	{ name: "South Australia", value: -3.8 },
+	{ name: "Tasmania", value: -1.9 },
+	{ name: "Northern Territory", value: 53.8 },
+];
+const svg = d3.select("svg"), //Setup variables
 	width = svg.attr("width"),
 	height = svg.attr("height");
 
-
 const sectorWidth = 1050;
 const sectorHeight = 500;
-const sectorMargin = {top: 40, bottom: 40, left: 40, right: 40}
-
+const sectorMargin = { top: 40, bottom: 40, left: 40, right: 40 };
+const stateMargin = { top: 30, right: 30, bottom: 70, left: 60 };
+const stateWidth = 800 - stateMargin.left - stateMargin.right;
+const stateHeight = 400 - stateMargin.top - stateMargin.bottom;
 
 const radius = 200;
 const g = svg
@@ -64,47 +73,111 @@ pies
 pies
 	.append("text")
 	.text((d) => d.data.name)
-	.attr("transform", (d) => `translate(${label.centroid(d)})`);  //Pie Chart
+	.attr("transform", (d) => `translate(${label.centroid(d)})`); //Pie Chart
 /* pies.append('text')
 .text(d => d.data.value)
 .attr('transform', d=>`translate(${label.centroid(d)})`) */
-const sectorSvg = d3.select("#sectorSvg")
-.append('svg')
-.attr('height', sectorHeight-sectorMargin.top-sectorMargin.bottom)
-.attr('width', sectorWidth-sectorMargin.left-sectorMargin.right)
-.attr('viewBox', [0,0, sectorWidth, sectorHeight])
+const sectorSvg = d3
+	.select("#sectorSvg")
+	.append("svg")
+	.attr("height", sectorHeight - sectorMargin.top - sectorMargin.bottom)
+	.attr("width", sectorWidth - sectorMargin.left - sectorMargin.right)
+	.attr("viewBox", [0, 0, sectorWidth, sectorHeight]);
 
-const x = d3.scaleBand()
-.domain(d3.range(sectorData.length))
-.range([sectorMargin.left, sectorWidth-sectorMargin.right])
-.padding(0.1);
+const x = d3
+	.scaleBand()
+	.domain(d3.range(sectorData.length))
+	.range([sectorMargin.left, sectorWidth - sectorMargin.right])
+	.padding(0.1);
 
-const y = d3.scaleLinear()
-.domain([0,30])
-.range([sectorHeight-sectorMargin.bottom, sectorMargin.top])
+const y = d3
+	.scaleLinear()
+	.domain([0, 30])
+	.range([sectorHeight - sectorMargin.bottom, sectorMargin.top]);
 
 sectorSvg
-.append('g')
-.attr('fill','royalblue')
-.selectAll('rect')
-.data(sectorData.sort((a,b)=> d3.descending(a.value, b.value)))
-.join('rect')
-  .attr('x',(d, i)=> x(i))
-  .attr('y', (d)=> y(d.value))
-  .attr('height', d=>y(0)-y(d.value))
-  .attr('width', x.bandwidth())
+	.append("g")
+	.attr("fill", "royalblue")
+	.selectAll("rect")
+	.data(sectorData.sort((a, b) => d3.descending(a.value, b.value)))
+	.join("rect")
+	.attr("x", (d, i) => x(i))
+	.attr("y", (d) => y(d.value))
+	.attr("height", (d) => y(0) - y(d.value))
+	.attr("width", x.bandwidth());
 
-function xAxis(g){
-    g.attr('transform', `translate(0, ${sectorHeight-sectorMargin.bottom})`)
-    .call(d3.axisBottom(x).tickFormat(i=> sectorData[i].name))
-    .attr('font-size', '15px')
+function xAxis(g) {
+	g.attr("transform", `translate(0, ${sectorHeight - sectorMargin.bottom})`)
+		.call(d3.axisBottom(x).tickFormat((i) => sectorData[i].name))
+		.attr("font-size", "15px");
 }
 
-function yAxis(g){
-g.attr('transform', `translate(${sectorMargin.left},0)`)
- .call(d3.axisLeft(y).ticks(null, sectorData.format))
- .attr('font-size', '15px')
+function yAxis(g) {
+	g.attr("transform", `translate(${sectorMargin.left},0)`)
+		.call(d3.axisLeft(y).ticks(null, sectorData.format))
+		.attr("font-size", "15px");
 }
-sectorSvg.append('g').call(yAxis)
-sectorSvg.append('g').call(xAxis)
-sectorSvg.node()    //Bar Graph
+sectorSvg.append("g").call(yAxis);
+sectorSvg.append("g").call(xAxis);
+sectorSvg.node(); //Bar Graph
+
+const stateSvg = d3
+	.select("#stateSvg")
+	.append("svg")
+	.attr("width", stateWidth + stateMargin.left + stateMargin.right)
+	.attr("height", stateHeight + stateMargin.top + stateMargin.bottom)
+	.append("g")
+	.attr(
+		"transform",
+		"translate(" + stateMargin.left + "," + stateMargin.top + ")"
+	);
+
+// Initialize the X axis
+var stateX = d3
+	.scaleBand()
+	.range([0, stateWidth])
+	.domain(
+		stateData1.map(function (d) {
+			return d.name;
+		})
+	)
+	.padding(0.2);
+stateSvg
+	.append("g")
+	.attr("transform", "translate(0," + stateHeight + ")")
+	.call(d3.axisBottom(stateX))
+	.attr("font-size", "12px");
+
+// Initialize the Y axis
+// Add Y axis
+var stateY = d3.scaleLinear().domain([-5, 50]).range([stateHeight, 0]);
+stateSvg
+	.append("g")
+	.attr("class", "myYaxis")
+	.call(d3.axisLeft(stateY))
+	.attr("font-size", "15px");
+
+// A function that create / update the plot for a given variable:
+function update(stateData) {
+	var u = stateSvg.selectAll("rect").data(stateData);
+
+	u.enter()
+		.append("rect")
+		.merge(u)
+		.transition()
+		.duration(1000)
+		.attr("x", function (d) {
+			return stateX(d.name);
+		})
+		.attr("y", function (d) {
+			return stateY(d.value);
+		})
+		.attr("width", stateX.bandwidth())
+		.attr("height", function (d) {
+			return stateHeight - stateY(d.value);
+		})
+		.attr("fill", "#69b3a2");
+}
+
+// Initialize the plot with the first dataset
+update(stateData1);

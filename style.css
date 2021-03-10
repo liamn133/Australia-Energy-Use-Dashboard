@@ -1,13 +1,66 @@
 #mainSvg{
-    position: absolute;
-    left: 20%;
-    top: 30%;
-    transform: translate(-50%, -50%);
-    background: #eee;
+    
+    position: relative;
+   
+  
+    
   }
 
-#sectorSvg{
+
+
+#container{
     position: absolute;
-    left: 2%;
-    top: 90%;
+    left: 0px;
+    top: 0px;
+}
+
+#sectorSvg{
+   margin-top: 50px;
+
+    
+   
+}
+
+#stateSvg{
+    margin-left: 170px;
+    
+  
+ 
+}
+
+#topSvgs{
+    margin-left: 40px;
+    margin-top: 100px;
+    display: flex;
+}
+
+body{
+    background-color: rgba(19, 18, 18, 0.9);
+    color: white;
+}
+
+h1{
+   margin-left: 40px;
+   font-size: 1.5em;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+#energyHeading{
+    margin-left: 0px;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+#sectorHeading{
+    margin-left: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+#stateHeading{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 0px;
+}
+
+#buttonContainer{
+
 }
